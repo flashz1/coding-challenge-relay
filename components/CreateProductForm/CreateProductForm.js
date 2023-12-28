@@ -86,7 +86,6 @@ export default function CreateProductForm({ environment }: TProps) {
         id='name'
         name='name'
         label='Product Name'
-        data-testid="name"
         variant='outlined'
         margin='normal'
         onChange={formik.handleChange}
