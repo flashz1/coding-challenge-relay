@@ -22,5 +22,13 @@ export const products: Product[] = new Array(9).fill(1).map((_, i) => ({
 export const get = () => products;
 
 export const add = (product: Object) => {
-  products.push(product);
+  const newProduct = {
+    id: products.length + 1,
+    ...product,
+    createdAt: faker.date.past().toISOString(),
+  };
+
+  products.push(newProduct);
+
+  return newProduct;
 };

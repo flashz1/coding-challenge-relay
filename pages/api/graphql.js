@@ -14,18 +14,23 @@ const viewer = {
     role: 'ADMIN',
     createdAt: '2019-11-08T06:50:17.449Z',
   }),
-  products: () => products.get(),
+  products: () => products.get().reverse(),
 };
 
 const resolvers = {
   Query: {
     viewer: () => viewer,
   },
-}
+  Mutation: {
+    createProduct: (_, args) => {
+      return products.add(args.input);
+    },
+  },
+};
 
 const schema = makeExecutableSchema({ typeDefs: schemaString, resolvers });
 
-const handler =  (req: NextApiRequest, res: NextApiResponse<any>) => {
+const handler = (req: NextApiRequest, res: NextApiResponse<any>) => {
   return graphqlHTTP({
     schema,
     graphiql: true,

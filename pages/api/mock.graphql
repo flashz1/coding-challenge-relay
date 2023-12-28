@@ -19,7 +19,15 @@ type Product {
   name: String!
   description: String!
   price: Float!
+  category: String!
   createdAt: String!
+}
+
+input CreateProductInput {
+  name: String!
+  description: String!
+  price: Float!
+  category: String!
 }
 
 type Viewer {
@@ -29,4 +37,8 @@ type Viewer {
 
 type Query {
   viewer: Viewer!
+}
+
+type Mutation {
+  createProduct(input: CreateProductInput!): Product!
 }

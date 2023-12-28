@@ -10,7 +10,6 @@ import type { NextComponentType, NextPageContext } from 'next/next-server/lib/ut
 
 import theme from '../lib/theme';
 import { initEnvironment, createEnvironment } from '../lib/createEnvironment';
-import MainContainer from '../components/MainContainer';
 
 if (!Intl.PluralRules) {
   /* eslint-disable global-require */
@@ -27,7 +26,7 @@ type InitialProps = {
   Component: NextComponentType<NextPageContext, $FlowFixMe, $FlowFixMe>,
   pageProps: $FlowFixMe,
   locale: string,
-  messages: { [key: string]: string; },
+  messages: { [key: string]: string },
   relayData: $FlowFixMe,
   token: string,
   records: $FlowFixMe,
@@ -89,24 +88,22 @@ export default class MyApp extends App<InitialProps> {
     );
 
     if (!Component.query) {
-      return <Component {...pageProps} locale={locale} />
+      return <Component {...pageProps} locale={locale} />;
     }
 
-    const environment = createEnvironment(
-      {
-        relayData,
-        records,
-      },
-    );
+    const environment = createEnvironment({
+      relayData,
+      records,
+    });
 
     return (
       <RawIntlProvider value={intl}>
         <Head>
-          <meta charSet="utf-8" />
+          <meta charSet='utf-8' />
           <title>Products</title>
           <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+            name='viewport'
+            content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no'
           />
         </Head>
         <ThemeProvider theme={theme}>
@@ -118,18 +115,22 @@ export default class MyApp extends App<InitialProps> {
             render={(params) => {
               const { error, props } = params;
               if (props && props.viewer) {
-
                 return (
                   <Suspense fallback={null}>
-                    <Component {...pageProps} environment={environment} {...props} locale={locale} />
+                    <Component
+                      {...pageProps}
+                      environment={environment}
+                      {...props}
+                      locale={locale}
+                    />
                   </Suspense>
                 );
               }
 
               if (error) {
-                return "Error!";
+                return 'Error!';
               }
-              return "Loading...";
+              return 'Loading...';
             }}
           />
         </ThemeProvider>
